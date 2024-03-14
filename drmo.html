@@ -1,0 +1,664 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Air Quality Index</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: lightblue;
+         
+        }
+        #aq2 {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            background-color: lightblue;
+        margin-bottom: 30px;
+        margin-top: 30px;
+        padding-right: 400px;
+        padding-left: 400px;
+        }
+        .result {
+            margin-top: 20px;
+        }
+        .result table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        .result th, .result td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: left;
+            background-color: #BFEA7C;
+
+        }
+        .result th {
+            background-color: #BFEA7C;
+            
+        }
+        #searchInput{
+            border: 2px solid black;
+        }
+        #stationInfo{
+            height: 400px;
+    overflow-y: auto;
+    border: 2px solid black;
+    padding: 5px 5px 5px 10px;
+    MARGIN-TOP: 30PX;
+    cursor: pointer;
+    background-color: white;
+        }
+        #selectedResult{
+            border: 2px solid black ;
+        }
+       
+    </style>
+</head>
+<body>
+<div class="add-map">
+    
+
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        #container {
+            display: flex;
+            align-items: flex-start;
+            /* Align items at the top */
+            padding-top: 20px;
+            /* Space at the top */
+        }
+
+        #map {
+            height: 800px;
+            width: 70%;
+            /* Map occupies 70% */
+        }
+
+        .container {
+            height: 800px;
+            width: 30%;
+            /* Container occupies 30% */
+            max-width: calc(30% - 40px);
+            /* considering margin */
+            background-color: #eee6c8;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            margin-left: 20px;
+            /* Space between map and container */
+        }
+
+        h1 {
+            color: #333;
+            margin-top: 0;
+            /* Remove margin at the top of h1 */
+        }
+
+        #result-container {
+            margin-top: 20px;
+        }
+
+        #main-aqi {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            margin-left: 60px;
+        }
+
+        #exp {
+            margin-left: 20px;
+        }
+
+        #city-title {
+            margin-bottom: 10px;
+            font-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #aqi-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #aqi-container p {
+            width: 100px;
+            height: 100px;
+            margin: 0px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 50px;
+        }
+
+        #emoji img {
+            height: 50px;
+            margin-top: 20px;
+        }
+
+        #msg {
+            font-family: Garamond, serif;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        #parameter-container,
+        #chart-container {
+            margin-top: 20px;
+        }
+
+        #chart-container {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #forecastChartContainer {
+            width: 400px;
+        }
+
+        #parameter-container p {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        #parameter-container ul {
+            list-style: none;
+            display: flex;
+            flex-direction: row;
+            flex-wrap: wrap;
+        }
+
+        #parameter-container ul li {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="map"></div>
+
+        <div class="container">
+            <h1 style="margin-top:30px;" id="city-title">Air Quality Information</h1>
+            <div id="result-container">
+                <div id="main-aqi">
+                    <div id="aqi-container"></div>
+                    <div id="exp">
+                        <div id="msg"></div>
+                        <div id="emoji"></div>
+                    </div>
+                </div>
+                <div style="margin-top:30px;" id="parameter-container"></div>
+                <div style="margin-top: 10px;" id="chart-container">
+                    <canvas id="forecastChart" width="400" height="200"></canvas>
+                </div>
+
+            </div>
+            <div style="margin-top: 40px;">
+                <p>
+                <h3 style="margin-left:15px;">Instructions:</h3>
+                <ul>
+                    <li>For moving map on PC screen-press & hold ctrl button and right click.</li>
+                    <li>For moving map on touch screen-hover two fingers.</li>
+                </ul>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.css" />
+    <script src="http://cdn.leafletjs.com/leaflet-0.7.5/leaflet.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let lat = 24.80169495167004;
+            let log = 74.608154296875;
+            const apiToken = "52bfd62631383e9629391e0493db7c06ef1eb705";
+            const cityTitle = document.getElementById("city-title");
+            const aqiContainer = document.getElementById("aqi-container");
+            const parameterContainer = document.getElementById("parameter-container");
+
+            // Initialize Leaflet map
+            var map = L.map('map', { minZoom: 2 }).setView([lat, log], 11); // Set default location to lat, log
+
+            // Define OSM and WAQI layers
+            var OSM_URL = 'http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png';
+            var OSM_ATTRIB = '&copy; <a href="http://openstreetmap.org/copyright">OpenStreetMap</a> contributors';
+            var osmLayer = L.tileLayer(OSM_URL, { attribution: OSM_ATTRIB, continuousWorld: false, noWrap: true });
+            var WAQI_URL = "https://tiles.waqi.info/tiles/usepa-aqi/{z}/{x}/{y}.png?token=52bfd62631383e9629391e0493db7c06ef1eb705";
+            var WAQI_ATTR = 'Air Quality Tiles &copy; <a href="http://waqi.info">waqi.info</a>';
+            var waqiLayer = L.tileLayer(WAQI_URL, { attribution: WAQI_ATTR, continuousWorld: false, noWrap: true });
+
+            // Add OSM and WAQI layers to map
+            map.addLayer(osmLayer).addLayer(waqiLayer);
+
+            // Event listener for map click
+            map.on('click', function (e) {
+                // Update lat and log values with clicked location
+                lat = e.latlng.lat;
+                log = e.latlng.lng;
+
+                // Update API URL with new lat and log values
+                const newApiURL = "https://api.waqi.info/feed/geo:" + lat + ";" + log + "/?token=" + apiToken;
+
+                // Fetch air quality data with updated API URL
+                fetch(newApiURL)
+                    .then(response => response.json())
+                    .then(data => displayAirQualityData(data))
+                    .catch(error => console.error("Error fetching air quality data:", error));
+            });
+
+            function displayAirQualityData(data) {
+                const aqi = data.data.aqi;
+                const cityDetails = data.data.city.name;
+                const dominantPollutant = data.data.dominentpol;
+                const individualAqiValues = data.data.iaqi;
+                const forecastData = data.data.forecast.daily;
+
+                // Set city title
+                cityTitle.textContent = cityDetails;
+
+                // Display AQI value
+                aqiContainer.innerHTML = `<p> ${aqi}</p>`;
+                setAqiContainerColor(aqiContainer, aqi);
+                let message, emoji, msgColor;
+                if (aqi >= 0 && aqi <= 50) {
+                    message = "Good";
+                    emoji = "1.png";
+                    msgColor = 'green';
+                } else if (aqi >= 51 && aqi <= 100) {
+                    message = "Moderate";
+                    emoji = "2.png";
+                    msgColor = 'yellow';
+                } else if (aqi >= 101 && aqi <= 150) {
+                    message = "Unhealthy for Sensitive Groups";
+                    emoji = "3.png";
+                    msgColor = 'orange';
+                } else if (aqi >= 151 && aqi <= 200) {
+                    message = "Unhealthy";
+                    emoji = "4.png";
+                    msgColor = 'red';
+                } else if (aqi >= 201 && aqi <= 300) {
+                    message = "Very Unhealthy";
+                    emoji = "5.png";
+                    msgColor = 'purple';
+                } else {
+                    message = "Hazardous";
+                    emoji = "6.png";
+                    msgColor = 'maroon';
+                }
+
+                // Display message and emoji
+                document.getElementById("msg").textContent = message;
+
+                document.getElementById("msg").style.color = msgColor;
+                document.getElementById("emoji").innerHTML = `<img src="${emoji}" alt="Emoji">`;
+
+
+                // Display individual parameters
+                const parametersHTML = `
+                    <p><strong>Individual Pollutant:</strong> </p>
+                    
+                    <ul>
+                        <li>PM 2.5: ${individualAqiValues.pm25.v} µg/m³</li>
+                        <li>Temperature: ${individualAqiValues.t.v} °C</li>
+                        <li>Atmospheric Pressure: ${individualAqiValues.p.v} hPa</li>
+                        <li>Humidity: ${individualAqiValues.h.v}%</li>
+                        <li>Wind: ${individualAqiValues.w.v} m/s</li>
+                        <li>Dew: ${individualAqiValues.dew.v} °C</li>
+                    </ul>
+                `;
+
+                parameterContainer.innerHTML = parametersHTML;
+
+                // Create forecast chart
+                const forecastChartCanvas = document.getElementById("forecastChart").getContext("2d");
+
+                const labels = forecastData.pm25.map(item => item.day);
+                const pm25Data = forecastData.pm25.map(item => item.avg);
+                const pm10Data = forecastData.pm10.map(item => item.avg);
+                const o3Data = forecastData.o3.map(item => item.avg);
+
+                new Chart(forecastChartCanvas, {
+                    type: 'bar',
+                    data: {
+                        labels: labels,
+                        datasets: [{
+                            label: 'PM2.5',
+                            data: pm25Data,
+                            backgroundColor: 'rgba(255, 99, 132, 0.7)',
+                            borderColor: 'rgba(255, 99, 132, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'PM10',
+                            data: pm10Data,
+                            backgroundColor: 'rgba(54, 162, 235, 0.7)',
+                            borderColor: 'rgba(54, 162, 235, 1)',
+                            borderWidth: 1
+                        },
+                        {
+                            label: 'O3',
+                            data: o3Data,
+                            backgroundColor: 'rgba(255, 206, 86, 0.7)',
+                            borderColor: 'rgba(255, 206, 86, 1)',
+                            borderWidth: 1
+                        }
+                        ]
+                    },
+                    options: {
+                        scales: {
+                            x: {
+                                beginAtZero: true
+                            },
+                            y: {
+                                beginAtZero: true
+                            }
+                        }
+                    }
+                });
+            }
+
+            function setAqiContainerColor(container, aqi) {
+                container.style.color = '#000'; // Reset font color
+
+                if (aqi >= 0 && aqi <= 50) {
+                    container.style.backgroundColor = 'green';
+                } else if (aqi >= 51 && aqi <= 100) {
+                    container.style.backgroundColor = 'yellow';
+                } else if (aqi >= 101 && aqi <= 150) {
+                    container.style.backgroundColor = 'orange';
+                } else if (aqi >= 151 && aqi <= 200) {
+                    container.style.backgroundColor = 'red';
+                    container.style.color = '#fff'; // Set font color to white
+                } else if (aqi >= 201 && aqi <= 300) {
+                    container.style.backgroundColor = 'purple';
+                    container.style.color = '#fff'; // Set font color to white
+                } else {
+                    container.style.backgroundColor = 'maroon';
+                    container.style.color = '#fff'; // Set font color to white
+                }
+            }
+        });
+    </script>
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+
+
+</div>
+    <div id="aq2">
+        <h3>Enter the City/Station to display Pollutants & Environment </h3>
+        <form id="searchForm">
+            <input type="text" id="searchInput" placeholder="Search by city or station">
+            <button type="submit">Search</button>
+        </form>
+        <div id="stationNames"></div>
+        <div id="selectedResult" class="result"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            const token = "52bfd62631383e9629391e0493db7c06ef1eb705";
+            const debounceTime = 300;
+            let timer;
+
+            $("#searchForm").on("submit", function (e) {
+                e.preventDefault();
+                const searchInput = $("#searchInput").val();
+                if (searchInput) {
+                    clearTimeout(timer);
+                    timer = setTimeout(function () {
+                        search(searchInput);
+                    }, debounceTime);
+                }
+            });
+
+            function search(keyword) {
+                $("#stationNames").empty();
+                $("#selectedResult").empty();
+                const url = `https://api.waqi.info/search/?token=${token}&keyword=${keyword}`;
+
+                fetch(url)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.status === "error") {
+                            $("#selectedResult").html("<h2>Error: " + data.data + "</h2>");
+                        } else {
+                            if (data.data.length === 0) {
+                                $("#selectedResult").html("<p>No results found.</p>");
+                            } else {
+                                const stationNames = $("<div/>").attr("id", "stationInfo");
+                                $("#stationNames").append(stationNames);
+                                data.data.forEach((item) => {
+                                    stationNames.append(
+                                        $("<div/>")
+                                            .addClass("station")
+                                            .append($("<h3/>").text(item.station.name))
+                                            .click(function() {
+                                                showStation(item, $("#selectedResult"));
+                                            })
+                                    );
+                                });
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        $("#selectedResult").html("<h2>Error: " + error.message + "</h2>");
+                    });
+            }
+
+            function showStation(station, output) {
+    const url = `https://api.waqi.info/feed/@${station.uid}/?token=${token}`;
+
+    fetch(url)
+        .then((response) => response.json())
+        .then((data) => {
+            if (data.status === "error") {
+                output.html("<h3>Error: " + data.data + "</h3>");
+            } else {
+                output.html("<h3>Pollutants & Weather conditions:</h3>");
+                const table = $("<table/>").addClass("result");
+                output.append(table);
+
+                const parameters = {
+                    'co': 'Carbon Monoxide',
+                    'dew': 'Dew (Dew Point)',
+                    'h': 'Hydrogen',
+                    'no2': 'Nitrogen Dioxide',
+                    'o3': 'Ozone',
+                    'p': 'Pressure',
+                    'pm10': 'Particulate Matter (particles with diameter 10 micrometers or smaller)',
+                    'pm25': 'Particulate Matter (particles with diameter 2.5 micrometers or smaller)',
+                    'so2': 'Sulfur Dioxide',
+                    't': 'Temperature',
+                    'w': 'Wind Speed or Wind Direction'
+                };
+
+                for (const specie in data.data.iaqi) {
+                    const aqi = data.data.iaqi[specie].v;
+                    const name = parameters[specie] ? parameters[specie] : specie.toUpperCase();
+                    table.append(
+                        $("<tr/>")
+                            .append($("<th/>").text(name))
+                            .append($("<td/>").text(aqi))
+                    );
+                }
+            }
+        })
+        .catch((error) => {
+            output.html("<h3>Error: " + error.message + "</h3>");
+        });
+}
+
+                const url = `https://api.waqi.info/feed/@${station.uid}/?token=${token}`;
+
+                fetch(url)
+                    .then((response) => response.json())
+                    .then((data) => {
+                        if (data.status === "error") {
+                            output.html("<h3>Error: " + data.data + "</h3>");
+                        } else {
+                            output.html("<h3>Pollutants & Weather conditions:</h3>");
+                            const table = $("<table/>").addClass("result");
+                            output.append(table);
+
+                            for (const specie in data.data.iaqi) {
+                                const aqi = data.data.iaqi[specie].v;
+                                const name = specie.replace("_", " ").toUpperCase();
+                                table.append(
+                                    $("<tr/>")
+                                        .append($("<th/>").text(name))
+                                        .append($("<td/>").text(aqi))
+                                );
+                            }
+                        }
+                    })
+                    .catch((error) => {
+                        output.html("<h3>Error: " + error.message + "</h3>");
+                    });
+            
+        });
+    </script>
+
+
+
+
+
+
+
+
+<style>
+    table {
+        outline-color: black;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid white;
+    padding: 8px;
+    text-align: left;
+  }
+</style>
+</head>
+<body>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Table</title>
+<style>
+    table {
+    outline-color: black;
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th, td {
+    border: 1px solid white;
+    padding: 8px;
+    text-align: left;
+  }
+</style>
+</head>
+<body>
+<div style="border: 5px solid black;">
+
+    <table>
+        <thead>
+            <t>
+                <th style="text-align: center;">AQI</th>
+                <th style="text-align: center;">Air Pollution Level</th>
+                <th>Emoji</th>
+                <th style="text-align: center;">Health Implications</th>
+                <th style="text-align: center;">Cautionary Statement (for PM2.5)</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr bgcolor="green" style="color: white;" >
+                <td>0-50 </td>
+                <td>Good</td>
+                <td>
+                    <div class="good">
+                        <img src="./emoji/good.png" alt="Good" width="35" height="35">
+                    </div>
+                </td>
+                <td>Air quality is considered satisfactory, and air pollution poses little or no risk</td>
+                <td>None</td>
+            </tr>
+    <tr bgcolor="yellow">
+        <td>51 -100</td>
+        <td>Moderate</td>
+        <td style="align-items: center;"><img src="./emoji/unhealthy for specific.png" alt="Moderate" width="35" height="35"></td>
+        <td>Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.</td>
+        <td>Active children and adults, and people with respiratory disease, such as asthma, should limit prolonged outdoor exertion.</td>
+    </tr>
+    <tr>
+    </tr>
+    <tr bgcolor="orange">
+        <td>101-150</td>
+        <td>Unhealthy for Sensitive Groups	</td>
+        <td><img src="./emoji/IPhone_Emoji_Sadness_Smiley_Emoticon_PNG_-_Free_Download-removebg-preview (1).png" alt="Unhealthy for specific" width="35" height="35"></td>
+        <td>Members of sensitive groups may experience health effects. The general public is not likely to be affected.	</td>
+        <td>Active children and adults, and people with respiratory disease, such as asthma, should limit prolonged outdoor exertion.</td>
+    </tr>
+    <tr bgcolor="red" style="color: white;">
+        <td>151-200</td>
+        <td>Unhealthy	</td>
+        <td><img src=" ./emoji/very unhealthy.png" alt="Unhealthy" width="35" height="35"></td>
+        <td>Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects	</td>
+        <td>Active children and adults, and people with respiratory disease, such as asthma, should avoid prolonged outdoor exertion; everyone else, especially children, should limit prolonged outdoor exertion</td>
+    </tr>
+    <tr bgcolor="purple" style="color: white;">
+        <td>201-300</td>
+        <td>Very Unhealthy</td>
+        <td><img style="margin-right:4px ;" src="./emoji/Emoji_Updates_for_Apple_s_iOS_14_5_Revealed-removebg-preview.png" alt="very unhealthy" width="45" height="45"></td>
+        <td>Health warnings of emergency conditions. The entire population is more likely to be affected.	</td>
+        <td>Active children and adults, and people with respiratory disease, such as asthma, should avoid all outdoor exertion; everyone else, especially children, should limit outdoor exertion.</td>
+    </tr>
+    <tr bgcolor="maroon" style="color: white;">
+        <td>300+</td>
+        <td>Hazardous	</td>
+        <td><img  style="margin-left:3px ;" src="./emoji/hazardous.jpg.png" alt="hazardous" height="35" width="35"></td>
+        <td>Health alert: everyone may experience more serious health effects	</td>
+        <td>Everyone should avoid all outdoor exertion</td>
+    </tr>
+    
+</tbody>
+</table>
+</div>
+
+</body>
+</html>

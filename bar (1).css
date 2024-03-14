@@ -1,0 +1,444 @@
+
+
+
+body {
+
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+#home{
+    background-color: #86aabf;
+    height: 650px;
+
+}
+#bar img{
+    height: 60px;
+
+}
+nav {
+    background-color: #333;
+    color:white;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+nav a {
+    color:#D8AB21;
+    text-decoration: none;
+    margin:15px;
+    font-weight: bold;
+}
+
+#logo {
+    font-size: 30px;
+    font-weight: bold;
+
+}
+#img{
+    height: 60px;
+}
+#Jal-Vayu{
+    color: #D8AB21;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+}
+
+nav li {
+    margin: 0 15px;
+}
+
+.home1{
+    display: flex;
+    width: 100%;
+    height: 600px;
+ display: flex;
+ align-items: center;
+ justify-content: center ;
+ gap: 180px;
+ flex-wrap: wrap;
+ background-color: #86aabf;
+}
+
+
+/* @keyframes change-color {
+    from{
+        background-color: white;
+        color:black
+    }
+    to{
+        background-color: yellow;
+        color: black;
+    }
+} */
+.box{
+    background-color: #C5EBAA;
+    font-family: 'Times New Roman', Times, serif;
+    margin-top: 40px;
+    margin-left: -80px;
+    border: 2px solid black;
+   
+    height: 300px ;
+    width: 480px;
+    flex-direction: column;
+    gap: 24px;
+    box-shadow:0px 25px 20px rgba(0, 0,0, 0.25) ;
+ border-radius: 20px;
+ padding-left: 30px;
+ display: flex;
+}
+.heading{
+    font-family: 'Times New Roman', Times, serif;
+ text-decoration: underline;
+    font-size: 45px;
+    font-weight: 8 00;
+}
+pre{
+    
+    margin-top: -60px;
+    font-family: 'Times New Roman', Times, serif;
+    margin-left: -10px;
+    font-size: 17px;
+}
+#lt{
+    margin-top: -60px;
+}
+
+.read-01{
+    text-decoration: none;
+    color: black;
+    border: 2px solid black;
+    padding: 8px 12px 8px 12px;
+    border-radius: 30px;
+    width: 100px;
+    font-weight: 700;
+    box-shadow:0px 7px 7px rgba(0, 0,0, 0.25) ;
+    margin-top: -4px;
+}
+
+.read-01:hover{
+    font-size: 15px;
+    transition: 1s;
+    background-color:   rgb(163, 155, 155);
+ color: white;
+}
+
+
+.read-02{
+    text-decoration: none;
+    color: black;
+    border: 2px solid black;
+    padding: 8px 12px 8px 12px;
+    border-radius: 30px;
+    width: 100px;
+    font-weight: 700;
+    box-shadow:0px 7px 7px rgba(0, 0,0, 0.25) ;
+    margin-top: 15px;
+}
+.read-02:hover{
+    font-size: 15px;
+    transition: 1s;
+    background-color:   rgb(163, 155, 155);
+ color: white;
+}
+.box:hover{
+    transition: 1.5s;
+    background-color: lightgoldenrodyellow;
+    color: black;
+    border-radius: 0%;
+    transform: scale(1.05);
+
+
+}
+ #slide{
+    height: 150px;
+    width: 1200px;
+    margin-top: -190px;
+    display: flex;
+    margin-left: 40px; 
+  gap: 2%;
+  align-items: center;
+  justify-content: center;
+
+} 
+
+
+
+.city{
+    height: 70px;
+    width: 200px;
+    display: flex;
+   background-color: #D8AB21;
+   border-radius: 25px;
+}
+
+
+
+
+.city :nth-child(1){
+    height: 80px;
+    width: 80px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   background-image: url(Anarchy.jpg);
+   background-repeat: no-repeat;
+   background-size: cover;
+   box-shadow: 4px 5px 7px gray;
+   font: white;
+   transform: scale(1.2);
+   margin-left: -20px;
+   margin-right: 15px;
+   margin-bottom: 20px;
+}
+
+
+.city :nth-child(2){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 500;
+   margin-top: 8px;
+    
+}
+.city :nth-child(3){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 400;
+   margin-top: 8px;
+
+}
+
+
+
+
+.city-01{
+    height: 70px;
+    width: 200px;
+    background-color:#D8AB21;
+    border-radius: 25px;
+    display: flex;
+   
+}
+
+.city-01 :nth-child(1){
+    height: 80px;
+    width: 90px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   background-image: url(Mumbai.jpg);
+   background-repeat: no-repeat;
+   background-size: cover;
+   background-color: white;
+   margin-right: 15px;
+   box-shadow: 4px 5px 7px gray;
+   transform: scale(1.2);
+   
+
+
+}
+
+.city-01 :nth-child(2){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 500;
+   margin-top: 8px;
+    
+}
+.city-01 :nth-child(3){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 400;
+   margin-top: 8px;
+
+}
+
+
+.city-02{
+    height: 70px;
+    width: 200px;
+    background-color: #D8AB21;
+    border-radius: 25px;
+    display: flex;
+   
+}
+
+.city-02 :nth-child(1){
+    height: 80px;
+    width: 80px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   background-image: url(stock-vector-indore-skyline-detailed-silhouette-trendy-vector-illustration-linear-style-2283128661-removebg-preview.png);
+   background-repeat: no-repeat;
+   background-size: contain;
+   background-color: white;
+   margin-right: 15px;
+   box-shadow: 4px 5px 7px gray;
+   transform: scale(1.2);
+
+    
+
+}
+
+.city-02 :nth-child(2){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 500;
+   margin-top: 8px;
+    
+}
+.city-02 :nth-child(3){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 400;
+   margin-top: 8px;
+
+}
+
+
+
+
+
+.city-03{
+    height: 70px;
+    width: 200px;
+    background-color: #D8AB21;
+    border-radius: 25px;
+    display: flex;
+   
+}
+
+.city-03 :nth-child(1){
+    height: 80px;
+    width: 80px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   background-image: url(Hydedabadvector.jpg);
+   background-repeat: no-repeat;
+   background-size: contain;
+   background-color: rgb(136,102,137);
+   box-shadow: 4px 5px 7px gray;
+   margin-right: 15px;
+   transform: scale(1.2);
+   z-index: 1;
+   
+
+}
+
+.city-03 :nth-child(2){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 500;
+   margin-top: 8px;
+    
+}
+.city-03 :nth-child(3){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 400;
+   margin-top: 8px;
+
+}
+
+.city :nth-child(1){
+    height: 80px;
+    width: 80px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   background-image: url(Anarchy.jpg);
+   background-repeat: no-repeat;
+   background-size: cover;
+   box-shadow: 4px 5px 7px gray;
+   font: white;
+   transform: scale(1.2);
+   margin-left: -20px;
+   margin-right: 15px;
+ 
+
+}
+
+
+.city :nth-child(2){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 500;
+   margin-top: 8px;
+    
+}
+.city :nth-child(3){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 400;
+   margin-top: 8px;
+
+}
+
+
+
+
+.city-04{
+    height: 70px;
+    width: 200px;
+    background-color: #D8AB21;
+    border-radius: 25px;
+    display: flex;
+   
+}
+
+.city-04 :nth-child(1){
+    height: 80px;
+    width: 80px;
+   border-radius: 50%;
+   display: flex;
+   align-items: center;
+   background-image: url(Kolkata.jpg);
+   background-repeat: no-repeat;
+   background-size: contain;
+   box-shadow: 4px 5px 7px gray;
+   margin-right: 15px;
+   transform: scale(1.2);
+    background-color: rgb(139,153,100);
+   
+
+}
+
+.city-04 :nth-child(2){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 500;
+   margin-top: 8px;
+    
+}
+.city-04 :nth-child(3){
+    height: 60px;
+    width: 60px;
+    font-family: 'Arial', sans-serif;
+   font-weight: 400;
+   margin-top: 8px;
+
+}
+
+
+
+

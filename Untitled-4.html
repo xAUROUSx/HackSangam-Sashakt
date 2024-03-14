@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Water Quality Search</title>
+    <link rel="stylesheet" href="style1.css">
+    
+</head>
+
+<body>
+    <div class="search-container">
+        <input type="text" id="searchInput" placeholder="Search for a city...">
+        <ul id="suggestions"></ul>
+    </div>
+    <div id="wq1">
+        <div id="wqd">
+            <div id="cityDetailsContainer">
+                <h2 id="cityName"></h2>
+                <div id="daw">
+                    
+                <p><div id="wqi"></div></p>
+                <div id="exp">
+                    
+                <div id="messw"></div> 
+                <img id="wqiImage" src="" alt="Water Quality Image">
+                </div>
+                
+                </div>
+            </div>
+        
+            <div id="healthAdviceContainer">
+                <div id="healthAdvice"></div>
+            </div>
+        </div>
+        <div id="rangetab">
+
+            <table>
+                <thead>
+                    <t>
+                        <th style="text-align: center;">AQI</th>
+                        <th style="text-align: center;">Air Pollution Level</th>
+                        <th>Emoji</th>
+                        <th style="text-align: center;">Health Implications</th>
+                        <th style="text-align: center;">Cautionary Statement (for PM2.5)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr bgcolor="green" style="color: white;" >
+                        <td>0-50 </td>
+                        <td>Good</td>
+                        <td>
+                            <div class="good">
+                                <img src="./good.png" alt="Good" width="35" height="35">
+                            </div>
+                        </td>
+                        <td>Air quality is considered satisfactory, and air pollution poses little or no risk</td>
+                        <td>None</td>
+                    </tr>
+            <tr bgcolor="yellow">
+                <td>51 -100</td>
+                <td>Moderate</td>
+                <td style="align-items: center;"><img src="./unhealthy for specific.png" alt="Moderate" width="35" height="35"></td>
+                <td>Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.</td>
+                <td>Active children and adults, and people with respiratory disease, such as asthma, should limit prolonged outdoor exertion.</td>
+            </tr>
+            <tr>
+            </tr>
+            <tr bgcolor="orange">
+                <td>101-150</td>
+                <td>Unhealthy for Sensitive Groups	</td>
+                <td><img src="./IPhone_Emoji_Sadness_Smiley_Emoticon_PNG_-_Free_Download-removebg-preview (1).png" alt="Unhealthy for specific" width="35" height="35"></td>
+                <td>Members of sensitive groups may experience health effects. The general public is not likely to be affected.	</td>
+                <td>Active children and adults, and people with respiratory disease, such as asthma, should limit prolonged outdoor exertion.</td>
+            </tr>
+            <tr bgcolor="red" style="color: white;">
+                <td>151-200</td>
+                <td>Unhealthy	</td>
+                <td><img src="./very unhealthy.png" alt="Unhealthy" width="35" height="35"></td>
+                <td>Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects	</td>
+                <td>Active children and adults, and people with respiratory disease, such as asthma, should avoid prolonged outdoor exertion; everyone else, especially children, should limit prolonged outdoor exertion</td>
+            </tr>
+            <tr bgcolor="purple" style="color: white;">
+                <td>201-300</td>
+                <td>Very Unhealthy</td>
+                <td><img style="margin-right:4px ;" src="./Emoji_Updates_for_Apple_s_iOS_14_5_Revealed-removebg-preview.png" alt="very unhealthy" width="45" height="45"></td>
+                <td>Health warnings of emergency conditions. The entire population is more likely to be affected.	</td>
+                <td>Active children and adults, and people with respiratory disease, such as asthma, should avoid all outdoor exertion; everyone else, especially children, should limit outdoor exertion.</td>
+            </tr>
+            <tr bgcolor="maroon" style="color: white;">
+                <td>300+</td>
+                <td>Hazardous	</td>
+                <td><img  style="margin-left:3px ;" src="./hazardous.jpg.png" alt="hazardous" height="35" width="35"></td>
+                <td>Health alert: everyone may experience more serious health effects	</td>
+                <td>Everyone should avoid all outdoor exertion</td>
+            </tr>
+            
+        </tbody>
+        </table>
+        </div>
+
+
+        <div id="wqg">
+            <div id="cityDetailsFullContainer">
+                <h2>Pollutant Details</h2>
+                <div>
+                    <p id="wqiFull"></p>
+                    <p id="temperatureFull"></p>
+                    <p id="pHFull"></p>
+                    <p id="conductivityFull"></p>
+                    <p id="bodFull"></p>
+                    <p id="nitrateFull"></p>
+                    <p id="fecalColiformFull"></p>
+                    <p id="coliformFull"></p>
+                    <p id="totalDissolvedSolidFull"></p>
+                    <p id="fluorideFull"></p>
+                    <p id="arsenicFull"></p>
+                </div>
+            </div>  
+            <div id="wqgraph">
+                <h2 style="text-align: center;">Pollutants graph for the city</h2>
+                <canvas id="myChart"></canvas>
+                
+            </div>
+        </div>
+
+
+    </div>
+    <div id="topbottom">
+        <div id="highestWqiContainer"></div>
+        
+        <!-- Container for top 10 lowest WQI stations -->
+        <div id="lowestWqiContainer"></div>>
+    </div>
+
+
+    <script src="script1.js">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+</body>
+
+</html>

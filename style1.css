@@ -1,0 +1,302 @@
+  body {
+      background-color: rgb(212, 230, 237);
+      font-family: Arial, Helvetica, sans-serif;
+      margin: 20px;
+  }
+
+  #rangetab {
+
+      border: 3px solid black;
+      margin-top: 2%;
+      width: 40%;
+
+  }
+
+
+  table {
+      outline-color: black;
+      border-collapse: collapse;
+      width: 100%;
+  }
+
+  th,
+  td {
+      border: 1px solid white;
+      padding: 8px;
+      text-align: left;
+  }
+
+
+  #wq1 {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+  }
+
+  #wqd {
+      height: 400px;
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 20px;
+  }
+
+  .search-container {
+      position: relative;
+  }
+
+  #searchInput {
+      width: 200px;
+      /* Adjusted width */
+      padding: 10px;
+  }
+
+  #suggestions {
+      list-style-type: none;
+      position: absolute;
+      width: 200px;
+      /* Adjusted width */
+      max-height: 150px;
+      /* Adjusted maximum height */
+      overflow-y: auto;
+      /* Added scrollbar */
+      background-color: #fff;
+      border: 1px solid #ddd;
+      padding: 0;
+      margin: 0;
+      height: 240px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  }
+
+  #suggestions li {
+      padding: 10px;
+      cursor: pointer;
+      border-bottom: 1px solid #ddd;
+  }
+
+  #suggestions li:hover {
+      background-color: #f5f5f5;
+  }
+
+  #cityDetailsContainer {
+      width: 350px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      background-color: #D7E4C0;
+      padding: 10px;
+      border-radius: 25px;
+  }
+
+  #daw {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 40px;
+  }
+
+  #exp {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column-reverse;
+      margin-top: -20px;
+  }
+
+  #messw {
+      margin-top: 20px;
+      font-size: 24px;
+  }
+
+  #wqi {
+      padding: 5px;
+      font-weight: bold;
+      border-radius: 5px;
+      color: rgb(0, 0, 0);
+      width: 60px;
+      height: 60px;
+      justify-content: center;
+      align-items: center;
+      display: flex;
+      font-size: 30px;
+
+      border: 2px solid;
+      border-radius: 25%;
+  }
+
+  #wqiImage {
+      margin-top: 10px;
+      max-width: 100%;
+      height: 90px;
+  }
+
+  /* Define background colors for different WQI ranges */
+  #wqi[data-wqi="0-50"] {
+      background-color: #4CAF50;
+      /* Green */
+  }
+
+  #wqi[data-wqi="50-100"] {
+      background-color: #8BC34A;
+      /* Light Green */
+  }
+
+  #wqi[data-wqi="100-200"] {
+      background-color: #FFEB3B;
+      /* Yellow */
+  }
+
+  #wqi[data-wqi="200-300"] {
+      background-color: #F44336;
+      /* Red */
+  }
+
+  #wqi[data-wqi="300+"] {
+      background-color: #673AB7;
+      /* Dark Purple */
+  }
+
+  #healthAdviceContainer {
+      width: 350px;
+      height: 400px;
+      display: flex;
+      flex-direction: column;
+      background-color: #D7E4C0;
+      padding: 10px;
+      border-radius: 25px;
+
+      width: 350px;
+  }
+
+  .search-container:hover #suggestions {
+      display: block;
+  }
+
+  #suggestions {
+      display: none;
+  }
+
+  #healthAdvice {
+      margin: 10px;
+  }
+
+
+  #healthAdvice strong {
+      font-size: 24px;
+  }
+
+  #healthAdvice li {
+      list-style: none;
+      margin-bottom: 10px;
+
+  }
+
+  #cityDetailsFullContainer {
+      margin-left: 20px;
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      margin-top: 36px;
+      background: #f8f9fa;
+      width: 769px;
+      height: 270px;
+  }
+
+  #cityDetailsFullContainer div {
+      align-self: auto;
+      flex-direction: column;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #D7E4C0;
+      width: 769px;
+      height: 200px;
+      flex-wrap: wrap;
+  }
+
+  #highestWqiContainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px solid ;
+    background-color:rgb(250, 236, 209) ;
+    display: flex;
+    width: 50%;
+justify-content: center;
+box-shadow: 2px 5px 4px gray;
+margin-bottom: 20px;
+background-color: rgb(250, 236, 209);
+}
+  #highestWqiContainer h3{
+    text-align: center;
+    
+  }
+  #topbottom{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+  #highestWqiContainer p{
+    margin: none;
+    
+  } 
+
+  #lowestWqiContainer{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    border: 2px solid ;
+    width: 50%;
+box-shadow: 2px 5px 4px gray;
+background-color: rgb(250, 236, 209);
+
+    
+    
+  }
+  #lowestWqiContainer h3{
+    text-align: center;
+    
+  }
+  #lowestWqiContainer p{
+    margin: none;
+    
+  } 
+
+
+  .top-bottom-container h2 {
+      border: 1px solid black;
+      border-radius: 10px;
+      text-align: center;
+      margin-left: 30px;
+      margin-bottom: 5px;
+  }
+
+  .city-entry {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 10px;
+      /* Increased margin */
+  }
+
+  .city-entry span {
+      flex: 1;
+      /* Equal width for station name and WQI */
+      margin-right: 10px;
+      margin-left: 15px;
+      /* Added margin between station name and WQI */
+  }
+
+  .city-entry span:first-child {
+      overflow-x: hidden;
+      /* Hide horizontal scroll bar for station names */
+  }
+
+  .city-entry span:last-child {
+      margin-right: 0;
+      /* Remove margin for the last span (WQI) */
+  }
